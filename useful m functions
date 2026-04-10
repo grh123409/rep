@@ -1,0 +1,14 @@
+(From as date, To as date, optional Selection as text ) =>
+let
+
+// Create default-value "Day" if no selection for the 3rd parameter has been made
+TimeInterval = if Selection = null then "Day" else Selection,
+
+// Table with different values for each case
+CaseFunctions = #table({"Case", "LastDateInTI", "TypeOfAddedTI", "NumberOfAddedTIs"},
+		{   {"Day", Date.From, Date.AddDays, Number.From(To-From)+1},
+		    {"Week", Date.EndOfWeek, Date.AddWeeks, Number.RoundUp((Number.From(To-From)+1)/7)},
+		    {"Month", Date.EndOfMonth, Date.AddMonths, (Date.Year(To)*12+Date.Month(To))-(Date.Year(From)*12+Date.Month(From))+1},
+		    {"Quarter", Date.EndOfQuarter, Date.AddQuarters, (Date.Year(To)*4+Date.QuarterOfYear(To))-(Date.Year(From)*4+Date.QuarterOfYear(From))+1},
+		    {"Year", Date.EndOfYear, Date.AddYears,Date.Year(To)-Date.Year(From)+1} 
+		} ),
