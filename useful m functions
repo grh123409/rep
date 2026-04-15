@@ -12,3 +12,8 @@ CaseFunctions = #table({"Case", "LastDateInTI", "TypeOfAddedTI", "NumberOfAddedT
 		    {"Quarter", Date.EndOfQuarter, Date.AddQuarters, (Date.Year(To)*4+Date.QuarterOfYear(To))-(Date.Year(From)*4+Date.QuarterOfYear(From))+1},
 		    {"Year", Date.EndOfYear, Date.AddYears,Date.Year(To)-Date.Year(From)+1} 
 		} ),
+
+
+{123, true, "A"}     // list containing a number, a logical, and
+                      //     a text
+{1, 2, 3}            // list of three numbers
