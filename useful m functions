@@ -17,3 +17,19 @@ CaseFunctions = #table({"Case", "LastDateInTI", "TypeOfAddedTI", "NumberOfAddedT
 {123, true, "A"}     // list containing a number, a logical, and
                       //     a text
 {1, 2, 3}            // list of three numbers
+
+________________________________________________
+
+let
+    Source = xxxx,
+
+    // ══════ JOINTURE VERS LIGNES_DECOMPTE ══════
+    // Pour détecter les Compte_Nous qui n'ont pas de correspondance
+    MergeLignes = Table.NestedJoin(
+        Source,
+        {"Compte_Nous"},
+        Lignes_Decomptes,
+        {"Compte_Nous"},
+        "LigneInfo",
+        JoinKind.LeftOuter
+    ),
