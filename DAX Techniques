@@ -1,0 +1,14 @@
+Conditionnal Formatting with DAX measures:
+
+Format_Ligne =
+VAR _Formule = SELECTEDVALUE('table'[column])
+VAR _CompteNous = SELECTEDVALUE('table'[column])
+VAR _IsSep = (LEFT(_Column, 3) = "SEP")
+RETURN
+    IF(_IsSep, "SEP",
+        IF(_Formule = "Titre", "TITRE",
+            IF(NOT(ISBLANK(_Column)), "TOTAL",
+                "NORMAL"
+            )
+        )
+    )
