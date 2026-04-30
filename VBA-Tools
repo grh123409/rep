@@ -72,3 +72,34 @@ Dict.RemoveAll
 
 Dict.Exists "A" ' -> False
 Dict("C") ' -> Empty
+
+
+For I Loop for Transactions generic
+
+For i = 0 To koTransactionsCount - 1
+        koData = koTransactions(i)
+        wsKO.Cells(Row, 2).Value = koData.transNum
+        wsKO.Cells(Row, 3).Value = koData.totalShares
+        wsKO.Cells(Row, 4).Value = koData.shares15
+        wsKO.Cells(Row, 5).Value = koData.designation
+        wsKO.Cells(Row, 6).Value = koData.isinCode
+        If IsValidDate_V48(koData.payDateVal) Then
+            wsKO.Cells(Row, 7).Value = ConvertToDate_V48(koData.payDateVal)
+            wsKO.Cells(Row, 7).NumberFormat = "dd.mm.yyyy"
+        End If
+        If IsValidDate_V48(koData.dueDateVal) Then
+            wsKO.Cells(Row, 8).Value = ConvertToDate_V48(koData.dueDateVal)
+            wsKO.Cells(Row, 8).NumberFormat = "dd.mm.yyyy"
+        End If
+        wsKO.Cells(Row, 9).Value = koData.unitPrice
+        If koData.grossAmount > 0 Then
+            wsKO.Cells(Row, 10).Formula = "=1-(" & wsKO.Cells(Row, 12).Address(False, False) & "/" & wsKO.Cells(Row, 11).Address(False, False) & ")"
+        Else
+            wsKO.Cells(Row, 10).Value = 0
+        End If
+        wsKO.Cells(Row, 10).NumberFormat = "0.00%"
+        wsKO.Cells(Row, 11).Value = koData.grossAmount
+        wsKO.Cells(Row, 12).Value = koData.netAmount
+        wsKO.Cells(Row, 13).Value = koData.taxAmountUSD
+        Row = Row + 1
+    Next i
